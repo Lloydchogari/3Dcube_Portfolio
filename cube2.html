@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Interactive 3D Cube Portfolio</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #000000, #000000);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    display: flex;
+    flex-direction: row; /* now row: cube left, nav right */
+    align-items: center;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Scene container with perspective */
+  .scene {
+    width: min(60vmin, 400px);
+    height: min(50vmin, 400px);
+    perspective: 1200px;
+    margin: auto;
+  }
+
+  /* Cube styling */
+  .cube {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+
+  /* Each face */
+  .face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 99, 193, 0.9);
+    border: 2px solid #00bfff;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 0 0 18px rgba(0,191,255,0.5);
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    overflow-y: auto;
+  }
+
+  .face h1 .highlight {
+  color: red;
+  font-size: 2.5rem; /* bigger for Bro */
+}
+
+.face h3 {
+  margin-top: 10px;
+  color: #fff;
+  font-weight: 400;
+}
+
+.social-icons {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.social-icons a {
+  color: white;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #00d7ff;
+}
+
+.about-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 10px 18px;
+  border: 2px solid #00d7ff;
+  border-radius: 30px;
+  color: #00d7ff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.about-btn i {
+  font-size: 1rem;
+}
+
+.about-btn:hover {
+  background: #00d7ff;
+  color: #0a043c;
+}
+
+
+  .face h2 {
+    color: #00bfff;
+    margin: 0 0 10px 0;
+  }
+  .face ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    text-align: left;
+  }
+  .face ul li {
+    margin-bottom: 8px;
+  }
+  .face a {
+    color: #00d7ff;
+    text-decoration: none;
+  }
+  .face a:hover {
+    text-decoration: underline;
+  }
+
+  /* Position cube faces */
+  .front  { transform: translateZ(calc(40vmin)); }
+  .back   { transform: rotateY(180deg) translateZ(calc(40vmin)); }
+  .right  { transform: rotateY(-90deg) translateZ(calc(40vmin)); }
+  .left   { transform: rotateY(90deg) translateZ(calc(40vmin)); }
+  .top    { transform: rotateX(-90deg) translateZ(calc(40vmin)); }
+  .bottom { transform: rotateX(90deg) translateZ(calc(40vmin)); }
+
+  /* Vertical nav bar */
+ .navbar {
+  position: fixed;
+  left: 2%;
+  top: 20%;
+  bottom: 0;
+  width: 120px;
+  border-radius: 12px;
+  height: 520px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; /* text aligned left */
+  gap: 30px;
+  z-index: 10000;
+  padding: 20px;
+}
+
+.navbar button {
+  all: unset;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  /* removed writing-mode and transform */
+}
+
+.navbar button:hover,
+.navbar button.active {
+  background: rgba(0, 191, 255, 0.2);
+  color: #00d7ff;
+  box-shadow: 0 4px 15px rgba(0, 191, 255, 0.4);
+}
+
+
+  @media (max-width: 600px) {
+    body {
+      flex-direction: column;
+    }
+    .scene {
+      width: 95vmin;
+      height: 95vmin;
+      margin-top: 20px;
+    }
+    .navbar {
+      position: static;
+      flex-direction: row;
+      width: 100%;
+      height: auto;
+      border-left: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .navbar button {
+      writing-mode: horizontal-tb;
+      transform: rotate(0);
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="scene">
+  <div class="cube" id="cube">
+    <div class="face front">
+      <h1>Hi I'm <span class="highlight">Bro</span></h1>
+      <h3>Web Developer [Full Stack]</h3>
+
+      <div class="social-icons">
+        <a href="https://linkedin.com/in/yourprofile" target="_blank" aria-label="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/yourprofile" target="_blank" aria-label="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+
+      <a href="#about" class="about-btn">
+        <i class="fas fa-user"></i> About Me
+      </a>
+    </div>
+
+    <div class="face back">
+      <h2>About Me</h2>
+      <p>I specialize in front-end development & UI/UX design with 5+ years experience.</p>
+    </div>
+
+    <div class="face right">
+      <h2>Projects</h2>
+      <ul>
+        <li><a href="#" target="_blank">Project One</a></li>
+        <li><a href="#" target="_blank">Project Two</a></li>
+        <li><a href="#" target="_blank">Project Three</a></li>
+      </ul>
+    </div>
+    <div class="face left">
+      <h2>Resume</h2>
+      <p>Experienced front-end developer with background in responsive web apps.</p>
+    </div>
+    <div class="face top">
+      <h2>Contact</h2>
+      <p>Email: your.email@example.com</p>
+      <p>GitHub: <a href="https://github.com/yourprofile" target="_blank">yourprofile</a></p>
+      <p>LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">yourprofile</a></p>
+    </div>
+    <div class="face bottom">
+      <h2>More Info</h2>
+      <p>Testimonials, blog links, social media profiles or additional info can go here.</p>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar" role="navigation" aria-label="Cube navigation">
+  <button data-face="front" class="active" aria-label="Home">Home</button>
+  <button data-face="right" aria-label="Projects">Projects</button>
+  <button data-face="left" aria-label="Resume">Resume</button>
+  <button data-face="back" aria-label="About">About</button>
+  <button data-face="top" aria-label="Contact">Contact</button>
+  <button data-face="bottom" aria-label="More">More</button>
+</nav>
+
+<script>
+  const faceRotations = {
+    front:  { x: 0,   y: 0 },
+    back:   { x: 0,   y: 180 },
+    right:  { x: 0,   y: -90 },
+    left:   { x: 0,   y: 90 },
+    top:    { x: -90, y: 0 },
+    bottom: { x: 90,  y: 0 },
+  };
+  const cube = document.getElementById('cube');
+  const navButtons = document.querySelectorAll('.navbar button');
+
+  function rotateCube(face) {
+    const { x, y } = faceRotations[face];
+    cube.style.transform = `rotateX(${x}deg) rotateY(${y}deg)`;
+  }
+
+  navButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const targetFace = button.dataset.face;
+      rotateCube(targetFace);
+      navButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+    });
+  });
+
+  rotateCube('front');
+</script>
+</body>
+</html>
