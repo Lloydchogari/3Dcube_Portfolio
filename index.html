@@ -101,7 +101,7 @@
     height: min(50vmin, 400px);
     perspective: 1200px;
     margin: auto;
-    margin-top: 2rem;
+    margin-top: 14rem;
   }
 
   .cube {
@@ -146,12 +146,30 @@
 }
 
 
+  .face-content {
+    flex: 1 1 0;
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px;
+    scrollbar-width: thin;
+    scrollbar-color: #00d7ff rgba(0, 0, 0, 0.1);
+  }
+
+  @media (max-width: 768px) {
+    .face-content { padding: 12px; }
+  }
+
   /* Enhanced scrolling for mobile */
   @media (max-width: 768px) {
     .scene {
       width: 90vw;
       height: 70vh;
-      margin-top: 1rem;
+      top: 30%;
     }
     
     .face {
@@ -212,29 +230,7 @@
     color: #00d7ff;
   }
 
-  /* about button */
-  .about-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 20px;
-    padding: 10px 18px;
-    border: 2px solid #00d7ff;
-    border-radius: 30px;
-    color: #00d7ff;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-  }
 
-  .about-btn i {
-    font-size: 1rem;
-  }
-
-  .about-btn:hover {
-    background: #00d7ff;
-    color: #0a043c;
-  }
 
   /* Coding font for the entire cube */
   .cube, .cube * {
@@ -478,13 +474,15 @@
     margin: 5px 0;
   }
 
-  /*ABOUT FACE*/
+  /*ABOUT
+          FACE*/
+
   /* About Me CSS */
   .about-page {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; 
     padding: 2rem 1rem;
     background: black;
     color: #e5e7eb;
@@ -573,7 +571,10 @@
   .social-icons a.email:hover { color:#ef4444; }
   .social-icons a.instagram:hover { color:#ec4899; }
 
-  /* ==CONTACT  FACE==*/
+  /* ==CONTACT 
+                 FACE==*/
+                 
+  /* Contact Face  CSSA */
   .face.top {
     overflow-y: auto;
     background: rgba(0, 0, 0, 0.9);
@@ -591,6 +592,7 @@
     max-width: 600px;
     min-height: 100vh;
     display: flex;
+    align-items: center;
     overflow-y: auto;
     flex-direction: column;
     gap: 2rem;
@@ -716,8 +718,8 @@
   /* Scene: fit cube size responsively with some margins on sides */
   .scene {
     width: 80vw;
-    height: 60vw;
-    margin-top: 1rem;
+    height: 70vw;
+    top: 40%;
 
   }
 
@@ -826,17 +828,19 @@
   <div class="cube" id="cube">
     <!-- Front face -->
     <div class="face front">
-      <h1>Hi I'm <span class="highlight">Bro</span></h1>
-      <h3>Web Developer [Full Stack]</h3>
+      <div class="face-content">
+        <h1>Hi I'm <span class="highlight">Bro</span></h1>
+        <h3>Web Developer [Full Stack]</h3>
 
-      <div class="social-icons">
-        <a href="https://linkedin.com/in/yourprofile" target="_blank" aria-label="LinkedIn">
-          <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="https://github.com/yourprofile" target="_blank" aria-label="GitHub">
-          <i class="fab fa-github"></i>
-        </a>
-      </div>
+        <div class="social-icons">
+          <a href="https://linkedin.com/in/yourprofile" target="_blank" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/yourprofile" target="_blank" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+        </div>
     </div>
 
     <!-- Other faces -->
@@ -901,7 +905,9 @@
 
     </div>
 
+     <!-- PROJECTS/projects face (Rightt) -->
     <div class="face right">
+      <div class="face-content">
   <h2> My Projects</h2>
 
   <!-- Websites -->
@@ -983,7 +989,6 @@
           <a href="https://countrynumberdetector.netlify.app/" target="_blank">Live</a>
         </div>
       </div>
-    </div>
   </div>
 
   <!-- Other Projects -->
@@ -1032,11 +1037,14 @@
       </div>
     </div>
   </div>
+  </div>
+   </div>
 </div>
 
 
+    <!-- Resume/skills face (left) -->
     <div class="face left">
-  <div class="skills-face">
+      <div class="face-content">
 
     <!-- Heading -->
     <h1 class="skills-heading">
@@ -1200,8 +1208,9 @@
 
 
 
+  <!-- Contact face (top) -->
     <div class="face top">
-  <div class="contact-face">
+      <div class="face-content">
     <!-- Left: Contact Info -->
     <div class="contact-info">
       <h1>Get In Touch</h1>
@@ -1250,9 +1259,12 @@
 
 
 
+       <!-- More face (bottom) -->
     <div class="face bottom">
+      <div class="face-content">
       <h2>More Info</h2>
       <p>Testimonials, blog links, social media profiles or additional info can go here.</p>
+    </div>
     </div>
   </div>
 </div>
