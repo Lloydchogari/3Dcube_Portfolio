@@ -1551,23 +1551,8 @@ colorOptions.forEach(option => {
     
     colorOptions.forEach(opt => opt.classList.remove('active'));
     option.classList.add('active');
-    
-    // Save to localStorage
-    localStorage.setItem('themeColor', color);
   });
 });
-
-// Load saved color
-const savedColor = localStorage.getItem('themeColor');
-if (savedColor) {
-  root.style.setProperty('--primary', savedColor);
-  colorOptions.forEach(option => {
-    option.classList.remove('active');
-    if (option.dataset.color === savedColor) {
-      option.classList.add('active');
-    }
-  });
-}
 
 // Mobile Menu Toggle
 const menuToggle = document.querySelector('.menu-toggle');
@@ -1834,24 +1819,7 @@ setTimeout(() => {
   typeCode();
 }, 2500);
 
-// Animate skill cards when they come into view
-const skillObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry, index) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }, index * 100);
-    }
-  });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.skill-card').forEach(card => {
-  card.style.opacity = '0';
-  card.style.transform = 'translateY(50px)';
-  card.style.transition = 'all 0.5s ease';
-  skillObserver.observe(card);
-});
+// Removed parallax effect to prevent cluttering with headings
 
 // Animate project cards
 const projectObserver = new IntersectionObserver((entries) => {
@@ -1884,18 +1852,12 @@ function updateThemeColor(color) {
   document.documentElement.style.setProperty('--primary', color);
   
   // Update cursor trails
-  cursorTrails?.forEach(trail => {
-    trail.style.background = color;
-    trail.style.boxShadow = `0 0 10px ${color}`;
-  });
-  
-  // Update particles
-  document.querySelectorAll('[style*="background"]').forEach(el => {
-    if (el.style.position === 'fixed' && el.style.borderRadius === '50%') {
-      el.style.background = color;
-      el.style.boxShadow = `0 0 10px ${color}`;
-    }
-  });
+  if (window.cursorTrails) {
+    window.cursorTrails.forEach(trail => {
+      trail.style.background = color;
+      trail.style.boxShadow = `0 0 10px ${color}`;
+    });
+  }
 }
 
 // Enhanced color selector with animations
@@ -1932,17 +1894,7 @@ colorOptions.forEach(option => {
   });
 });
 
-// Parallax effect for sections
-window.addEventListener('scroll', () => {
-  const scrolled = window.pageYOffset;
-  const parallaxElements = document.querySelectorAll('.about-card, .skill-card');
-  
-  parallaxElements.forEach((el, index) => {
-    const speed = 0.5 + (index % 3) * 0.1;
-    const yPos = -(scrolled * speed / 10);
-    el.style.transform = `translateY(${yPos}px)`;
-  });
-});
+// Removed skill card animation to prevent cluttering
 
 // Add sparkle effect on hover for cards
 function createSparkle(x, y) {
