@@ -1530,10 +1530,11 @@ footer {
       </div>
     </div>
 
-    <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+    <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
       <input type="hidden" name="access_key" value="d8269f92-2be1-48b8-a46e-72576619f21f">
       <input type="hidden" name="subject" value="New Contact Form Submission from Portfolio">
       <input type="hidden" name="from_name" value="Portfolio Contact Form">
+      <input type="hidden" name="redirect" value="https://web3forms.com/success">
       <div class="form-group">
         <label>Your Name</label>
         <input type="text" name="name" placeholder="John Doe" required>
@@ -1595,6 +1596,46 @@ colorOptions.forEach(option => {
     colorOptions.forEach(opt => opt.classList.remove('active'));
     option.classList.add('active');
   });
+});
+
+// Enhanced Contact Form Handling
+document.addEventListener('DOMContentLoaded', () => {
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // Disable submit button during submission
+      submitButton.disabled = true;
+      submitButton.innerHTML = 'Sending...';
+
+      try {
+        const formData = new FormData(contactForm);
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (response.ok) {
+          // Success
+          contactForm.reset();
+          alert('Thank you! Your message has been sent successfully.');
+          window.location.href = formData.get('redirect');
+        } else {
+          // Error
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        alert('Sorry, there was an error sending your message. Please try again.');
+      } finally {
+        // Re-enable submit button
+        submitButton.disabled = false;
+        submitButton.innerHTML = 'Send Message';
+      }
+    });
+  }
 });
 
 // Mobile Menu Toggle
