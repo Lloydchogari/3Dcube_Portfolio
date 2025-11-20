@@ -832,6 +832,17 @@ section {
   transform: translateX(10px);
 }
 
+/* Make contact links white (override browser default blue) */
+.contact-item a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.contact-item a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
 .contact-icon {
   font-size: 24px;
   color: var(--primary);
@@ -1465,11 +1476,11 @@ footer {
         <p class="project-description">A digital barter trade platform where users can exchange goods and services without money.</p>
         <div class="project-tags">
           <span class="tag">React</span>
-          <span class="tag">Barter</span>
+          <span class="tag">SaaS</span>
           <span class="tag">Trading</span>
         </div>
         <div class="project-links">
-          <a href="https://bartertrade.netlify.app/" target="_blank" class="project-link">
+          <a href="https://tradenet.vercel.app/" target="_blank" class="project-link">
             <i class="fas fa-external-link-alt"></i> Live
           </a>
         </div>
