@@ -686,7 +686,8 @@ section {
   border: 1px solid var(--glass-border);
   border-radius: 15px;
   overflow: hidden;
-  transition: all 0.3s;
+  /* only animate non-layout properties to avoid movement/jank */
+  transition: box-shadow 0.28s ease, border-color 0.28s ease, opacity 0.28s ease;
   cursor: pointer;
   position: relative;
   height: 400px;
@@ -709,7 +710,8 @@ section {
 }
 
 .project-card:hover {
-  transform: translateY(-10px);
+  /* remove any transform on hover to prevent movement */
+  transform: none !important;
   box-shadow: 0 20px 60px rgba(0, 215, 255, 0.4);
   border-color: var(--primary);
 }
@@ -1493,6 +1495,26 @@ footer {
         </div>
       </div>
     </div>
+    
+    <div class="project-card">
+      <div class="project-image">
+        <i class="fas fa-bus"></i>
+      </div>
+      <div class="project-content">
+        <h3 class="project-title">Metalstone Logistics</h3>
+        <p class="project-description">Website for a bus transport company with booking and schedule features.</p>
+        <div class="project-tags">
+          <span class="tag">TypeScript</span>
+          <span class="tag">Next.js</span>
+          <span class="tag">Tailwind</span>
+        </div>
+        <div class="project-links">
+          <a href="https://mslogistics.vercel.app" target="_blank" class="project-link">
+            <i class="fas fa-external-link-alt"></i> Live
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1557,12 +1579,6 @@ footer {
     </a>
     <a href="https://github.com/Lloydchogari" target="_blank" class="social-link">
       <i class="fab fa-github"></i>
-    </a>
-    <a href="https://wa.me/263780771627" target="_blank" class="social-link">
-      <i class="fab fa-whatsapp"></i>
-    </a>
-    <a href="https://www.facebook.com/lloyd.donnel" target="_blank" class="social-link">
-      <i class="fab fa-facebook-f"></i>
     </a>
     <a href="https://www.instagram.com/lloyd_donnel/" target="_blank" class="social-link">
       <i class="fab fa-instagram"></i>
